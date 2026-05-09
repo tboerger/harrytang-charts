@@ -63,7 +63,7 @@
       "description": "Expose the service via gateway-api HTTPRoute\nRequires Gateway API resources and suitable controller installed within the cluster\n(see: https://gateway-api.sigs.k8s.io/guides/)",
       "properties": {
         "annotations": {
-          "additionalProperties": false,
+          "additionalProperties": true,
           "description": "HTTPRoute annotations.",
           "required": [],
           "title": "annotations",
@@ -131,6 +131,12 @@
               {
                 "additionalProperties": false,
                 "properties": {
+                  "name": {
+                    "description": "Optional name for the rule.",
+                    "required": [],
+                    "title": "name",
+                    "type": "string"
+                  },
                   "matches": {
                     "items": {
                       "anyOf": [
@@ -171,6 +177,57 @@
                     },
                     "required": [],
                     "title": "matches",
+                    "type": "array"
+                  },
+                  "backendRefs": {
+                    "description": "Optional override for the backend references. If omitted, defaults to the chart's own service.",
+                    "items": {
+                      "anyOf": [
+                        {
+                          "additionalProperties": false,
+                          "properties": {
+                            "group": {
+                              "required": [],
+                              "title": "group",
+                              "type": "string"
+                            },
+                            "kind": {
+                              "required": [],
+                              "title": "kind",
+                              "type": "string"
+                            },
+                            "name": {
+                              "required": [],
+                              "title": "name",
+                              "type": "string"
+                            },
+                            "namespace": {
+                              "required": [],
+                              "title": "namespace",
+                              "type": "string"
+                            },
+                            "port": {
+                              "required": [],
+                              "title": "port",
+                              "type": "integer"
+                            },
+                            "weight": {
+                              "required": [],
+                              "title": "weight",
+                              "type": "integer"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "port"
+                          ],
+                          "type": "object"
+                        }
+                      ],
+                      "required": []
+                    },
+                    "required": [],
+                    "title": "backendRefs",
                     "type": "array"
                   }
                 },
